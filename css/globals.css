@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("./fonts/fonts.css");
+
+@layer base {
+  body {
+    @apply relative h-full bg-brand-main text-white font-nexa;
+  }
+}
+
+.sidebar-button {
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.06) 51.56%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #083204;
+}
+
+.sidebar-button:hover,
+.sidebar-button-active {
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.12) 0%,
+      rgba(255, 255, 255, 0.06) 51.56%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), #41f50c;
+}
+
+.rank-bg {
+  background: linear-gradient(
+    88.2deg,
+    rgba(196, 196, 196, 0.1) 4.02%,
+    rgba(101, 207, 122, 0.025) 99.99%,
+    rgba(101, 207, 122, 0.1) 100%
+  );
+
+  box-shadow: 0px 1px 15px rgb(101 207 122 / 20%);
+}
+
+.rank-image-bg {
+  background: radial-gradient(
+    177.92% 177.92% at 50% 50.51%,
+    #000000 0%,
+    rgba(46, 46, 46, 0.819355) 35.48%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.text-shadow {
+  text-shadow: 0px 3px 5px #6f6f6f;
+}
