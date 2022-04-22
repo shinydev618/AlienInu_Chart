@@ -24,7 +24,7 @@ const dashboardStat = [
   },
   {
     title: "Price ETH",
-    stat: "0.000000000001 ",
+    stat: "0.000000000001",
   },
 ];
 

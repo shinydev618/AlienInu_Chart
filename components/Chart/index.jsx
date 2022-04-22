@@ -105,13 +105,14 @@ dayjs.extend(utc)
 dayjs.extend(weekOfYear)
 
 const StyledPriceChartCard = styled.div`
-    position : relative;
+margin-top:20px;
+position : relative;
   align-items: center;
   width: 100%;
   // flex: 1;
 
   & .highcharts-xaxis > path {
-    stroke: ${({ isDark }) => isDark ? "white" : "#9D9FC3"};
+    stroke: '#ffffff';
     stroke-width : 0.5!important;
   }
  
@@ -120,7 +121,7 @@ const StyledPriceChartCard = styled.div`
   }
   
   & .highcharts-navigator-handle{
-    fill: ${({ isDark }) => isDark ? "rgba(4, 2, 24, 1)" : "#C4C4F6"};
+    fill: '#ffffff';
     stroke: ${({ isDark }) => isDark ? "rgba(36, 35, 78, 1)" : "rgba(157, 159, 195, 1)"};
     stroke-width : 0.5!important;
   }
@@ -130,7 +131,7 @@ const StyledPriceChartCard = styled.div`
   }
 
   & .highcharts-xaxis-labels > text{
-    fill : ${({ isDark }) => isDark ? "#555C95" : "#9D9FC3"}!important;
+    fill : '#ffffff'!important;
   }
 
   & .highcharts-navigator-xaxis > path{
@@ -158,7 +159,7 @@ const StyledPriceChartCard = styled.div`
   }
 
   & .highcharts-range-input > text{
-    fill : ${({ isDark }) => isDark ? "white" : "#141316"}!important;
+    fill : ${({ isDark }) => isDark ? "white" : "white"}!important;
     font-family: "Montserrat"!important;
   }
 
@@ -281,14 +282,14 @@ const PriceChartCard = () => {
             xAxis: [
                 {
                     labels: {
-                        style: { color: isDark ? "rgb(65 245 12)" : "#9D9FC3" }
+                        style: { color: "#ffffff" }
                     },
                 }],
             yAxis: {
-                gridLineColor: isDark ? 'rgb(65 245 12)' : '#E6E7F9',
+                gridLineColor: '#ffffff',
                 labels: {
                     format: '${value:.4f}',
-                    style: { color: isDark ? "#C4C4F6" : "white" }
+                    style: { color: "#ffffff" }
                 },
                 offset: 60,
                 tickLength: 60,
@@ -383,7 +384,7 @@ const PriceChartCard = () => {
                 formatter: function () {
                     var tooltip = '<div style="color:#ffffff;">' + '$' + Number(this.y).toFixed(4) + '</div><br/>';
                     var temp = Highcharts.dateFormat('%b %eth %Y, %H:%M', Number(this.x));
-                    tooltip += `<div style = "color : #C4C4F6; padding-top : 10px;">${temp}</div>`;
+                    tooltip += `<div style = "color : white; padding-top : 10px;">${temp}</div>`;
                     return tooltip;
                 },
                 style: { opacity: 0.9 },
@@ -407,8 +408,8 @@ const PriceChartCard = () => {
                     : <></>}
 
             </ResponsiveContainer>
-            <div className='from'>From</div>
-            <div className='to'>To</div>
+            {/* <div className='from'>From</div>
+            <div className='to'>To</div> */}
         </StyledPriceChartCard>
     )
 }
