@@ -2,10 +2,10 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { ethers } from "ethers";
 
-const IS_MAINNET = process.env.REACT_APP_NETWORK === 'mainnet';
-const chainId = IS_MAINNET? 3 : 3;
-const rpcUrl = IS_MAINNET? "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161" : "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161";
-const scanUrl = IS_MAINNET? "https://ropsten.etherscan.io/" : "https://ropsten.etherscan.io/";
+const IS_MAINNET = true;
+const chainId = IS_MAINNET? 1 : 3;
+const rpcUrl = IS_MAINNET? "https://mainnet.infura.io/v3/cfbaf3fecc3b4827abc4b9e1e9f2fd06" : "https://ropsten.infura.io/v3/cfbaf3fecc3b4827abc4b9e1e9f2fd06";
+const scanUrl = IS_MAINNET? "https://etherscan.io" : "https://ropsten.etherscan.io/";
 
 const BINANCE_MAINNET_PARAMS = {
   chainId: chainId,

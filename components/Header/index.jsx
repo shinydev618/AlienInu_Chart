@@ -1,5 +1,5 @@
-import { Fragment, useState, useEffect } from "react";
-// import { Box } from "@material-ui/core";
+import React, { Fragment, useState, useEffect, useMemo } from "react";
+import { Box } from "@material-ui/core";
 import { Listbox, Transition } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
 import {
@@ -11,8 +11,16 @@ import {
 import Image from "next/image";
 import SidebarNav from "./../Sidebar/SidebarNav";
 import SocialMedia from "../SocialMeida";
-import { injected, walletConnect, trustWallet, binance_wallet } from "../../utils/connectors";
+import {
+  injected,
+  walletConnect,
+  trustWallet,
+  binance_wallet,
+} from "../../utils/connectors";
 import { useWeb3React } from "@web3-react/core";
+import { CONTRACTS } from "../../utils/constants";
+import { Alien_ABI } from "../../utils/abi";
+import { ethers } from "ethers";
 
 const people = [
   { id: 1, name: "Wade Cooper" },
@@ -28,6 +36,7 @@ const navigation = [
 const Header = () => {
   const [selected, setSelected] = useState(people[1]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [alien_token_balance, set_alien_token_balance] = useState(0);
 
   const DESKTOP_CONNECTORS = {
     MetaMask: injected,
@@ -36,23 +45,31 @@ const Header = () => {
     TrustWallet: trustWallet,
   };
   const walletConnectors = DESKTOP_CONNECTORS;
-  const { account, active, activate } = useWeb3React();
+  const { account, active, library, activate } = useWeb3React();
   const handleConnect = async () => {
     await activate(walletConnectors["MetaMask"]);
   };
 
-  const get_token_amount = async() => {
-    const Web3 = require("web3")
-    const web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/"))
+  const AlienContract = useMemo(
+    () =>
+      library
+        ? new ethers.Contract(
+            CONTRACTS.ALIEN_TOKEN,
+            Alien_ABI,
+            library.getSigner()
+          )
+        : null,
+    [library]
+  );
 
-    web3.eth.getBalance("0x7C7572a2227065321Ce01f444CB1A63A3caA8509", function (err, result) {
-      if (err) {
-        console.log(err)
-      } else {
-        alert(web3.utils.fromWei(result, "ether") + " ETH")
-      }
-    })
-  }
+  const get_token_amount = async () => {
+    try {
+      const token_balance = await AlienContract.balanceOf(account);
+      set_alien_token_balance(token_balance);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     if (active === true) {
@@ -67,11 +84,11 @@ const Header = () => {
           <Image layout="fill" src="/logo.png" alt="Alien lnu logo" />
         </div>
         <div className="flex items-center space-x-3 lg:space-x-5">
-
           <Listbox value={selected} onChange={setSelected}>
             {({ open }) => (
               <div className="relative">
                 <Listbox.Button className="bg-connect-button h-9 flex items-center font-myriad-pro rounded-xl space-x-2 px-3">
+                  
                   <span>
                     <img src="/assets/all.svg" alt="" />
                   </span>
@@ -151,15 +168,14 @@ const Header = () => {
                 stroke="currentColor"
               />
             </svg>
-            {
-              active ? <span>
-                {account.slice(0, 6) + "..." + account.slice(-4)}
-              </span> : <span>
+            {active ? (
+              <span>{account.slice(0, 6) + "..." + account.slice(-4)}</span>
+            ) : (
+              <span>
                 Connect
                 <span className="hidden md:inline-block">Wallet</span>
               </span>
-            }
-
+            )}
           </button>
 
           <div className="hidden lg:flex items-center pl-2">
