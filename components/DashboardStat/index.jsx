@@ -66,7 +66,7 @@ const DashboardStat = () => {
     },
     {
       title: "Total Value",
-      stat: "$" + alien_token_balance * 0.000000000001 + " Dollars",
+      stat: "$" + (alien_token_balance * 0.000000000001).toFixed(3) + " Dollars",
     },
     {
       title: "Tokens Burnt",
