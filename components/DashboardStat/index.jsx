@@ -62,7 +62,7 @@ const DashboardStat = () => {
     },
     {
       title: "Alien Balance",
-      stat: alien_token_balance,
+      stat: alien_token_balance.toFixed(3),
     },
     {
       title: "Total Value",
